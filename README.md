@@ -47,6 +47,14 @@ You can then execute your native executable with: `./target/hsm-cli-1.0.0-SNAPSH
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
+## Command Completion
+
+To generate and use a command completion script suitable for bash and zsh, type
+```shell script
+java -cp target/quarkus-app/lib/main/info.picocli.picocli-4.6.3.jar:target/quarkus-app/app/hsm-cli-1.0.0-SNAPSHOT.jar picocli.AutoComplete --name=hsmcli --completionScript=hsmcli_completion --force dev.scheibelhofer.MainCommand
+. ./hsmcli_completion
+``` 
+
 ## Related Guides
 
 - REST Client Classic ([guide](https://quarkus.io/guides/rest-client)): Call REST services

@@ -6,7 +6,9 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "create", mixinStandardHelpOptions = true)
+@CommandLine.Command(name = "create", 
+                     mixinStandardHelpOptions = true,
+                     description = "Create a new key")
 public class CreateCommand implements Runnable {
 
     @Inject

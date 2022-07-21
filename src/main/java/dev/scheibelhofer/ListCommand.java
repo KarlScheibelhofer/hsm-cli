@@ -8,7 +8,9 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import picocli.CommandLine;
 
-@CommandLine.Command(name = "list", mixinStandardHelpOptions = true)
+@CommandLine.Command(name = "list", 
+                     mixinStandardHelpOptions = true,
+                     description = "List all keys or a specific key")
 public class ListCommand implements Runnable {
 
     @Inject

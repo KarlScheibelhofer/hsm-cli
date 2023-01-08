@@ -9,9 +9,10 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 
-@CommandLine.Command(name = "create_complete_algorithm", 
-                     hidden = true)
-public class CreateCompleteAlgorithmCommand implements Runnable {
+@CommandLine.Command(name = "key-algorithms", 
+                     mixinStandardHelpOptions = true,
+                     description = "List all supported key algorithms")
+public class KeyAlgorithmsCommand implements Runnable {
 
     @Inject
     @RestClient

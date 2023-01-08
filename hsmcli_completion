@@ -156,11 +156,14 @@ function _complete_hsmcli() {
   # Edge case: if command line has no space after subcommand, then don't assume this subcommand is selected (remkop/picocli#1468).
   if [ "${COMP_LINE}" = "${COMP_WORDS[0]} list" ];    then _picocli_hsmcli; return $?; fi
   if [ "${COMP_LINE}" = "${COMP_WORDS[0]} create" ];    then _picocli_hsmcli; return $?; fi
+  if [ "${COMP_LINE}" = "${COMP_WORDS[0]} key-algorithms" ];    then _picocli_hsmcli; return $?; fi
 
   # Find the longest sequence of subcommands and call the bash function for that subcommand.
   local cmds0=(list)
   local cmds1=(create)
+  local cmds2=(key-algorithms)
 
+  if CompWordsContainsArray "${cmds2[@]}"; then _picocli_hsmcli_keyalgorithms; return $?; fi
   if CompWordsContainsArray "${cmds1[@]}"; then _picocli_hsmcli_create; return $?; fi
   if CompWordsContainsArray "${cmds0[@]}"; then _picocli_hsmcli_list; return $?; fi
 
@@ -173,7 +176,7 @@ function _picocli_hsmcli() {
   # Get completion data
   local curr_word=${COMP_WORDS[COMP_CWORD]}
 
-  local commands="list create"
+  local commands="list create key-algorithms"
   local flag_opts="-h --help -V --version"
   local arg_opts=""
 
@@ -222,8 +225,7 @@ function _picocli_hsmcli_create() {
   local commands=""
   local flag_opts="-h --help -V --version"
   local arg_opts="-n --name -a --algorithm"
-  local executable_name="${COMP_WORDS[0]}"
-  local algorithm_option_args=($(${executable_name} create_complete_algorithm))
+  local algorithm_option_args=($(${COMP_WORDS[0]} key-algorithms))
 
   type compopt &>/dev/null && compopt +o default
 
@@ -237,6 +239,24 @@ function _picocli_hsmcli_create() {
       return $?
       ;;
   esac
+
+  if [[ "${curr_word}" == -* ]]; then
+    COMPREPLY=( $(compgen -W "${flag_opts} ${arg_opts}" -- "${curr_word}") )
+  else
+    local positionals=""
+    local IFS=$'\n'
+    COMPREPLY=( $(compgen -W "${commands// /$'\n'}${IFS}${positionals}" -- "${curr_word}") )
+  fi
+}
+
+# Generates completions for the options and subcommands of the `key-algorithms` subcommand.
+function _picocli_hsmcli_keyalgorithms() {
+  # Get completion data
+  local curr_word=${COMP_WORDS[COMP_CWORD]}
+
+  local commands=""
+  local flag_opts="-h --help -V --version"
+  local arg_opts=""
 
   if [[ "${curr_word}" == -* ]]; then
     COMPREPLY=( $(compgen -W "${flag_opts} ${arg_opts}" -- "${curr_word}") )

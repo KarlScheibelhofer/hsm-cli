@@ -11,7 +11,7 @@ import picocli.CommandLine;
                      subcommands = { 
                         ListCommand.class, 
                         CreateCommand.class, 
-                        CreateCompleteAlgorithmCommand.class, 
+                        KeyAlgorithmsCommand.class, 
                     },
                      description = "Command-Line client for the HSM-API")
 public class MainCommand {

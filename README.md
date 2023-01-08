@@ -52,6 +52,7 @@ If you want to learn more about building native executables, please consult http
 To generate and use a command completion script suitable for bash and zsh, type
 ```shell script
 java -cp "$(ls target/quarkus-app/lib/main/info.picocli.picocli-*.jar):$(ls target/quarkus-app/app/hsm-cli-*.jar)" picocli.AutoComplete --name=hsmcli --completionScript=hsmcli_completion --force dev.scheibelhofer.MainCommand
+./patch-completion.sh
 . ./hsmcli_completion
 ``` 
 

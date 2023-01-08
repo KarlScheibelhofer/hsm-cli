@@ -8,7 +8,11 @@ import picocli.CommandLine;
 @TopCommand
 @CommandLine.Command(name = "hsmcli", 
                      mixinStandardHelpOptions = true, 
-                     subcommands = { ListCommand.class, CreateCommand.class },
+                     subcommands = { 
+                        ListCommand.class, 
+                        CreateCommand.class, 
+                        CreateCompleteAlgorithmCommand.class, 
+                    },
                      description = "Command-Line client for the HSM-API")
 public class MainCommand {
 }

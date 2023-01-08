@@ -222,7 +222,8 @@ function _picocli_hsmcli_create() {
   local commands=""
   local flag_opts="-h --help -V --version"
   local arg_opts="-n --name -a --algorithm"
-  local algorithm_option_args=("EC_P256" "EC_P384" "EC_P521" "RSA_PSS_2048" "EC_ED25519" "EC_ED448") # --algorithm values
+  local executable_name="${COMP_WORDS[0]}"
+  local algorithm_option_args=($(${executable_name} create_complete_algorithm))
 
   type compopt &>/dev/null && compopt +o default
 
